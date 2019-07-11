@@ -1,24 +1,36 @@
 <?php
-	$firstname= $_POST["fname"];
+	/*$firstname= $_POST["fname"];
 	$Lastname= $_POST["Iname"];
-	$email= $_POST["email"];
+	$email= $_POST["email"];*/
+
+	include('connexion.php');
+	$bdd = Connexion();
+
+	$reponse = $bdd->query('SELECT * FROM users');
+	$xml =
+	'<?xml version="1.0" encoding="utf-8"?>
+	<Leads>';
+	$cmp = 1;
+	foreach($reponse as $value){
+		//if($cmp >= 1) break;
+	   $xml .= '<row no="'.$cmp.'">
+			<FL val="First Name">'.$value['first_name'].'</FL>
+			<FL val="Last Name">'.$value['last_name'].'</FL>
+			<FL val="Company">'.$value['company'].'</FL>
+			<FL val="Email">'.$value['email'].'</FL>
+			<FL val="Phone">'.$value['phone'].'</FL>
+		</row>';
+		$cmp++;
+	}
+	$xml .= '</Leads>';
 
 
-$xml =
-'<?xml version="1.0" encoding="UTF-8"?>
-<Leads>
-	<row no="1">
-		<FL val="First Name">'.$firstname.'</FL>
-		<FL val="Last Name">'.$Lastname.'</FL>
-		<FL val="Email">'.$email.'</FL>
-	</row>
-</Leads>';
 
 
 /*------------------------------------Token-----------------------------------*/
 //Le token generer en vous connectant a partir du lien 
 //https://accounts.zoho.com/apiauthtoken/nb/create?SCOPE=ZohoCRM/crmapi&EMAIL_ID=votre_Email_de_connexion_sur_le_site_Zoho&PASSWORD=votre_mot_de_passe
-$auth="__My___Token";
+$auth="930c52a9d307134e318ee6424d268130";
 /*-------------------------------------------------------------------------------*/
 
 /*-------------Liens pour l'entité que vous sohaite remplir ici les leads-----------------*/
