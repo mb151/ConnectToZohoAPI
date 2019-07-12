@@ -5,7 +5,8 @@ function Connexion(){
         $password = "root";
 
             try {
-                $conn = new PDO("mysql:host=$servername;dbname=zoho", $username, $password); 
+                $conn = new PDO("mysql:host=$servername;dbname=zoho;charset=utf8", $username, $password,
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'")); 
                 // set the PDO error mode to exception
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 echo "Connected successfully"; 
